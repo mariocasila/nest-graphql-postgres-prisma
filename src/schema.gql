@@ -1,0 +1,90 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ProjectType {
+  id: Int!
+  title: String!
+  userId: Int!
+  user: UserType!
+}
+
+type UserType {
+  id: Int!
+  name: String!
+  username: String!
+  email: String!
+  password: String!
+  bio: String
+  projects: [ProjectType!]
+}
+
+type UsersResponse {
+  id: Int!
+  name: String!
+  username: String!
+  email: String!
+  bio: String
+  projects: [ProjectType!]
+}
+
+type LoginResponse {
+  user: UsersResponse!
+  accessToken: String!
+  refreshToken: String!
+}
+
+type Query {
+  projects: [ProjectType!]!
+  projectsByUserId(userId: Int!): [ProjectType!]!
+  logIn(loginInput: LoginInput!): LoginResponse!
+  me: UserType!
+  users: [UserType!]!
+  refreshToken(token: String!): LoginResponse!
+}
+
+input LoginInput {
+  """email"""
+  email: String
+
+  """username"""
+  username: String
+
+  """password"""
+  password: String!
+}
+
+type Mutation {
+  createProject(createProjectsInput: CreateProjectsInput!): ProjectType!
+  createUser(createUsersInput: CreateUsersInput!): UserType!
+  deleteUser: UserType!
+}
+
+input CreateProjectsInput {
+  """User Id"""
+  userId: Int!
+
+  """Project title"""
+  title: String!
+}
+
+input CreateUsersInput {
+  """Name"""
+  name: String!
+
+  """username"""
+  username: String!
+
+  """Password"""
+  password: String!
+
+  """email"""
+  email: String!
+
+  """Bio"""
+  bio: String
+}
+
+type Subscription {
+  projectCreated: ProjectType!
+}
